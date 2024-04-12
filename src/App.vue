@@ -1,11 +1,11 @@
 <script>
-// import MyComp from './components/MyComp.vue';
-// import {store} from './store/index.js'
+import ProjectList from "./components/projects/ProjectList.vue";
+import { config } from "./store/index.js";
 
 export default {
   data() {
     return {
-      // store,
+      config,
       // ...
     };
   },
@@ -18,7 +18,7 @@ export default {
     // ...
   },
 
-  components: {},
+  components: { ProjectList },
 
   created() {
     // ...
@@ -30,7 +30,10 @@ export default {
   <div class="main-wrapper">
     <app-header />
     <main>
-      <h1 class="text-center">Title</h1>
+      <div class="container">
+        <h1 class="text-center">{{ config.appName }}</h1>
+        <project-list />
+      </div>
     </main>
     <app-footer />
   </div>
