@@ -27,7 +27,7 @@ export default {
 </script>
 
 <template>
-  <footer>
+  <footer class="mt-4">
     <div class="container">
       <div>Created by Jonathan Lombardo</div>
       <div class="fs-3">

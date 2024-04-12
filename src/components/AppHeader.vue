@@ -12,7 +12,7 @@ export default {
 </script>
 
 <template>
-  <header>
+  <header class="mb-4">
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container">
         <a class="navbar-brand" :href="config.homeUrl">{{ config.appName }}</a>
