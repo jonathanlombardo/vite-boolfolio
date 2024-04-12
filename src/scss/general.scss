@@ -1,2 +1,17 @@
 // Import all of Bootstrap's CSS
 @import "bootstrap/scss/bootstrap";
+
+.main-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  main {
+    flex-grow: 1;
+  }
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
