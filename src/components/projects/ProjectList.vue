@@ -35,7 +35,8 @@ export default {
 </script>
 
 <template>
-  <div class="row row-cols-5 g-3 py-5">
+  <collection-paginator :collection="prjCollection" @linkClicked="fetchProjects" />
+  <div class="row row-cols-3 g-4 pb-4">
     <project-card v-for="project in projects" :project="project" />
   </div>
   <collection-paginator :collection="prjCollection" @linkClicked="fetchProjects" />

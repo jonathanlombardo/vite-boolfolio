@@ -31,7 +31,7 @@ export default {
     <app-header />
     <main>
       <div class="container">
-        <h1 class="text-center">{{ config.appName }}</h1>
+        <h1 class="text-center mb-5">{{ config.appName }}</h1>
         <project-list />
       </div>
     </main>
