@@ -27,7 +27,13 @@ export default {
 </script>
 
 <template>
-  <h1 class="text-center">Title</h1>
+  <div class="main-wrapper">
+    <app-header />
+    <main>
+      <h1 class="text-center">Title</h1>
+    </main>
+    <app-footer />
+  </div>
 </template>
 
 <style lang="scss" scoped></style>
