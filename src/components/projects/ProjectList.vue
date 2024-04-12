@@ -1,5 +1,6 @@
 <script>
 import ProjectCard from "./ProjectCard.vue";
+import CollectionPaginator from "../partials/CollectionPaginator.vue";
 import { config } from "../../store/index.js";
 import axios from "axios";
 
@@ -8,6 +9,7 @@ export default {
     return {
       // config,
       projects: [],
+      prjCollection: [],
     };
   },
 
@@ -16,14 +18,15 @@ export default {
   },
 
   methods: {
-    fetchProjects(endpoint = config.api.endpoint.projectIndex) {
-      axios.get(`${config.api.baseUrl + endpoint}`).then((res) => {
+    fetchProjects(endpoint = config.api.baseUrl + config.api.endpoint.projectIndex) {
+      axios.get(`${endpoint}`).then((res) => {
         this.projects = res.data.data;
+        this.prjCollection = res.data;
       });
     },
   },
 
-  components: { ProjectCard },
+  components: { ProjectCard, CollectionPaginator },
 
   created() {
     this.fetchProjects();
@@ -35,6 +38,7 @@ export default {
   <div class="row row-cols-5 g-3 py-5">
     <project-card v-for="project in projects" :project="project" />
   </div>
+  <collection-paginator :collection="prjCollection" @linkClicked="fetchProjects" />
 </template>
 
 <style lang="scss" scoped></style>
