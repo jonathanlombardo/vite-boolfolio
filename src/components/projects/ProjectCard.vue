@@ -29,13 +29,22 @@ export default {
 <template>
   <div class="col">
     <div class="card h-100">
-      <img :src="project.imgUrl" class="card-img-top" alt="..." />
-      <div class="card-body">
-        <h5 class="card-title">{{ project.title }}</h5>
+      <img :src="project.imgUrl" class="card-img-top" :alt="`${project.title} image`" />
+      <div class="card-body gap-2">
+        <div class="d-flex justify-content-between align-items-center">
+          <h5 class="card-title">{{ project.title }}</h5>
+          <span class="badge" :style="`background-color: ${project.type.color}`">{{ project.type.label }}</span>
+        </div>
         <p class="card-text">{{ project.abstract }}</p>
         <a href="#" class="btn btn-primary">Go somewhere</a>
+        <div><strong>Author</strong>: {{ project.author }}</div>
       </div>
-      <div class="card-footer"><strong>Author</strong>: {{ project.author }}</div>
+      <div class="card-footer">
+        <div class="d-inline" v-for="(tech, index) in project.technologies">
+          <span v-if="index"> | </span>
+          <span class="fw-bold" :style="`color: ${tech.color}`">{{ tech.label }}</span>
+        </div>
+      </div>
     </div>
   </div>
 </template>
