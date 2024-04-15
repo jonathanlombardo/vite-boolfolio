@@ -31,7 +31,8 @@ export default {
     <app-header />
     <main>
       <div class="container">
-        <project-index />
+        <!-- <project-index /> -->
+        <router-view />
       </div>
     </main>
     <app-footer />
