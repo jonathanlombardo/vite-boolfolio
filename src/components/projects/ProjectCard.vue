@@ -40,9 +40,12 @@ export default {
         <div><strong>Author</strong>: {{ project.author }}</div>
       </div>
       <div class="card-footer">
-        <div class="d-inline" v-for="(tech, index) in project.technologies">
+        <div class="d-inline" v-if="project.technologies.length" v-for="(tech, index) in project.technologies">
           <span v-if="index"> | </span>
           <span class="fw-bold" :style="`color: ${tech.color}`">{{ tech.label }}</span>
+        </div>
+        <div class="d-inline" v-else>
+          <i>No specific technologies</i>
         </div>
       </div>
     </div>
