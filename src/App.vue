@@ -1,5 +1,5 @@
 <script>
-import ProjectList from "./components/projects/ProjectList.vue";
+import ProjectIndex from "./pages/ProjectIndex.vue";
 import { config } from "./store/index.js";
 
 export default {
@@ -18,7 +18,7 @@ export default {
     // ...
   },
 
-  components: { ProjectList },
+  components: { ProjectIndex },
 
   created() {
     // ...
@@ -31,8 +31,7 @@ export default {
     <app-header />
     <main>
       <div class="container">
-        <h1 class="text-center mb-5">{{ config.appName }}</h1>
-        <project-list />
+        <project-index />
       </div>
     </main>
     <app-footer />

@@ -1,13 +1,13 @@
 <script>
-import ProjectCard from "./ProjectCard.vue";
-import CollectionPaginator from "../partials/CollectionPaginator.vue";
-import { config } from "../../store/index.js";
+import ProjectCard from "../components/projects/ProjectCard.vue";
+import CollectionPaginator from "../components/partials/CollectionPaginator.vue";
+import { config } from "../store/index.js";
 import axios from "axios";
 
 export default {
   data() {
     return {
-      // config,
+      config,
       projects: [],
       prjCollection: [],
     };
@@ -35,6 +35,7 @@ export default {
 </script>
 
 <template>
+  <h1 class="text-center mb-5">{{ config.appName }}</h1>
   <collection-paginator :collection="prjCollection" @linkClicked="fetchProjects" />
   <div class="row row-cols-3 g-4 pb-4">
     <project-card v-for="project in projects" :project="project" />
