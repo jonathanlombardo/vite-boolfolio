@@ -11,7 +11,6 @@ export const config = {
       },
     },
   },
-  homeUrl: "/",
   socialUrl: {
     gitHub: "https://github.com/jonathanlombardo/",
   },

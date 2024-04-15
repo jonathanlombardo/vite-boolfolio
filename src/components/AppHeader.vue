@@ -22,7 +22,10 @@ export default {
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" :href="config.homeUrl">Home</a>
+              <router-link :class="['nav-link', { active: this.$route.name == 'home' }]" aria-current="page" :to="{ name: 'home' }">Home</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link :class="['nav-link', { active: this.$route.name == 'projects.index' }]" aria-current="page" :to="{ name: 'projects.index' }">Projects</router-link>
             </li>
             <!-- <li class="nav-item">
               <a class="nav-link" href="#">Link</a>
