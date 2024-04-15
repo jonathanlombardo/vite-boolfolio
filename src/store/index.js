@@ -6,8 +6,8 @@ export const config = {
     baseUrl: "http://127.0.0.1:8000/api/",
     endpoint: {
       projectIndex: "projects",
-      projectShow(id) {
-        return `api/projects/${id}`;
+      projectShow(slug) {
+        return `projects/${slug}`;
       },
     },
   },

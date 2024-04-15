@@ -36,7 +36,7 @@ export default {
           <span class="badge" :style="`background-color: ${project.type.color}`">{{ project.type.label }}</span>
         </div>
         <p class="card-text">{{ project.abstract }}</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <router-link class="btn btn-primary" aria-current="page" :to="{ name: 'projects.show', params: { slug: project.slug } }">Show more</router-link>
         <div><strong>Author</strong>: {{ project.author }}</div>
       </div>
       <div class="card-footer">
