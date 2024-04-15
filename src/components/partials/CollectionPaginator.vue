@@ -1,15 +1,5 @@
 <script>
-// import MyComp from './components/MyComp.vue';
-// import {store} from './store/index.js'
-
 export default {
-  data() {
-    return {
-      // store,
-      // ...
-    };
-  },
-
   props: {
     collection: Object,
   },
@@ -31,7 +21,7 @@ export default {
 </script>
 
 <template>
-  <div class="wrapper">
+  <div v-if="collection.length != 0" class="wrapper">
     <div class="fst-italic fs-6">
       Showed <span class="fw-medium">{{ collection.per_page }}</span> resuts. From <span class="fw-medium">{{ collection.from }}</span> to <span class="fw-medium">{{ collection.to }}</span>
     </div>
