@@ -1,3 +1,5 @@
+import { reactive } from "vue";
+
 export const config = {
   appName: "Portfolio",
   api: {
@@ -14,3 +16,9 @@ export const config = {
     gitHub: "https://github.com/jonathanlombardo/",
   },
 };
+
+export const store = reactive({
+  activePagination: {
+    projectIndex: null,
+  },
+});

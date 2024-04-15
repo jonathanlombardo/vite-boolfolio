@@ -1,7 +1,7 @@
 <script>
 import ProjectCard from "../components/projects/ProjectCard.vue";
 import CollectionPaginator from "../components/partials/CollectionPaginator.vue";
-import { config } from "../store/index.js";
+import { config, store } from "../store/index.js";
 import axios from "axios";
 
 export default {
@@ -22,6 +22,7 @@ export default {
       axios.get(`${endpoint}`).then((res) => {
         this.projects = res.data.data;
         this.prjCollection = res.data;
+        store.activePagination.projectIndex = endpoint;
       });
     },
   },
@@ -29,7 +30,11 @@ export default {
   components: { ProjectCard, CollectionPaginator },
 
   created() {
-    this.fetchProjects();
+    if (store.activePagination.projectIndex) {
+      this.fetchProjects(store.activePagination.projectIndex);
+    } else {
+      this.fetchProjects();
+    }
   },
 };
 </script>
