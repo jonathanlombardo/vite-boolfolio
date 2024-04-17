@@ -12,7 +12,8 @@ export default {
   methods: {
     fetchProjects(endpoint = config.api.baseUrl + config.api.endpoint.projectShow(this.$route.params.slug)) {
       axios.get(`${endpoint}`).then((res) => {
-        this.project = res.data;
+        if(!res.data.success) this.$router.push({name: 'notfound'});
+        this.project = res.data.project;
       });
     },
   },

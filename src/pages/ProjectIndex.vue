@@ -20,8 +20,9 @@ export default {
   methods: {
     fetchProjects(endpoint = config.api.baseUrl + config.api.endpoint.projectIndex) {
       axios.get(`${endpoint}`).then((res) => {
-        this.projects = res.data.data;
-        this.prjCollection = res.data;
+        if (!res.data.success) this.$router.push({ name: "notfound" });
+        this.projects = res.data.projects.data;
+        this.prjCollection = res.data.projects;
         store.activePagination.projectIndex = endpoint;
       });
     },
