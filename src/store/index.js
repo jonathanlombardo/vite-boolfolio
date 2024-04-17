@@ -9,6 +9,8 @@ export const config = {
       projectShow(slug) {
         return `projects/${slug}`;
       },
+      typeIndex: "types",
+      techIndex: "technologies",
     },
   },
   socialUrl: {

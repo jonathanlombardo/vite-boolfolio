@@ -13,7 +13,9 @@ import AppFooter from "./components/AppFooter.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
-library.add(faGithub);
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+
+library.add(faGithub, faMagnifyingGlass);
 
 const app = createApp(App);
 app.component("app-header", AppHeader);
