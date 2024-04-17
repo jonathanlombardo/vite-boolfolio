@@ -12,10 +12,12 @@ export default {
 </script>
 
 <template>
-  <header class="mb-4">
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <header class="mb-4 fs-5">
+    <nav class="navbar navbar-expand-lg">
       <div class="container">
-        <a class="navbar-brand" :href="config.homeUrl">{{ config.appName }}</a>
+        <a class="navbar-brand" :href="config.homeUrl">
+          <img src="/logo.png" alt="logo" />
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -53,4 +55,28 @@ export default {
   </header>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@use "../scss/partials/var" as *;
+header {
+  height: 80px;
+  nav.navbar {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    height: 100%;
+    background-color: $primary;
+    .container {
+      height: 100%;
+      a.navbar-brand {
+        height: 100%;
+      }
+      // .nav-link {
+      //   height: 100%;
+
+      //   &.active {
+      //     box-shadow: inset 0 -7px 0 0 white;
+      //   }
+      // }
+    }
+  }
+}
+</style>

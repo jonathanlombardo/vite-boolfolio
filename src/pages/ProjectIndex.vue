@@ -42,7 +42,7 @@ export default {
 <template>
   <h1 class="text-center mb-5">{{ config.appName }}</h1>
   <collection-paginator :collection="prjCollection" @linkClicked="fetchProjects" />
-  <div class="row row-cols-3 g-4 pb-4">
+  <div class="row row-cols-4 g-4 py-4">
     <project-card v-for="project in projects" :project="project" />
   </div>
   <collection-paginator :collection="prjCollection" @linkClicked="fetchProjects" />
