@@ -68,6 +68,9 @@ export default {
     },
 
     typesHandleClick(type) {
+      this.types.forEach((_type) => {
+        if (type.id != _type.id) _type.active = false;
+      });
       type.active = !type.active;
       this.fetchProjects();
     },
