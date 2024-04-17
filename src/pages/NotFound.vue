@@ -27,18 +27,10 @@ export default {
 </script>
 
 <template>
-  <div class="wrapper d-flex flex-column justify-content-center align-items-center">
+  <div class="text-center">
     <h1>404</h1>
     <p class="h3">Page not found</p>
   </div>
 </template>
 
-<style lang="scss" scoped>
-.wrapper {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-}
-</style>
+<style lang="scss" scoped></style>
