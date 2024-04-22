@@ -2,6 +2,7 @@
 import ProjectCard from "../components/projects/ProjectCard.vue";
 // import CollectionPaginator from "../components/partials/CollectionPaginator.vue";
 import AppBtn from "../components/partials/AppBtn.vue";
+import AppLoader from "../components/partials/AppLoader.vue";
 import { config, store } from "../store/index.js";
 import axios from "axios";
 
@@ -40,7 +41,7 @@ export default {
   },
 
   methods: {
-    fetchProjects(endpoint = config.api.baseUrl + config.api.endpoint.projectIndex) {
+    fetchProjects(endpoint = config.api.baseUrl + config.api.endpoint.projectIndex, loadMore = false) {
       const params = {
         types: this.activeTypes,
         techs: this.activeTechs,
@@ -49,7 +50,7 @@ export default {
 
       axios.get(`${endpoint}`, { params }).then((res) => {
         if (!res.data.success) this.$router.push({ name: "notfound" });
-        this.projects = this.projects.concat(res.data.projects.data);
+        this.projects = loadMore ? this.projects.concat(res.data.projects.data) : res.data.projects.data;
         this.prjCollection = res.data.projects;
 
         store.activePagination.projectIndex = endpoint;
@@ -70,7 +71,7 @@ export default {
 
     loadMore() {
       const endpoint = this.prjCollection.next_page_url;
-      this.fetchProjects(endpoint);
+      this.fetchProjects(endpoint, true);
     },
 
     typesHandleClick(type) {
@@ -95,7 +96,7 @@ export default {
     },
   },
 
-  components: { ProjectCard, AppBtn },
+  components: { ProjectCard, AppBtn, AppLoader },
 
   created() {
     if (store.activePagination.projectIndex) {
@@ -112,6 +113,8 @@ export default {
 
 <template>
   <h1 class="text-center mb-3">{{ config.appName }}</h1>
+
+  <app-loader class="text-primary my-5" />
 
   <div class="accordion mb-3" id="filterAccordion">
     <div class="accordion-item">
