@@ -17,6 +17,11 @@ export default {
       techs: [],
       searchTerm: "",
       searchClock: false,
+      loading: {
+        projects: true,
+        techs: true,
+        types: true,
+      },
     };
   },
 
@@ -52,25 +57,29 @@ export default {
         if (!res.data.success) this.$router.push({ name: "notfound" });
         this.projects = loadMore ? this.projects.concat(res.data.projects.data) : res.data.projects.data;
         this.prjCollection = res.data.projects;
+        this.loading.projects = false;
 
-        store.activePagination.projectIndex = endpoint;
+        if (loadMore) this.loading.more = false;
       });
     },
 
     fetchTypes(endpoint = config.api.baseUrl + config.api.endpoint.typeIndex) {
       axios.get(`${endpoint}`).then((res) => {
         this.types = res.data;
+        this.loading.types = false;
       });
     },
 
     fetchTechs(endpoint = config.api.baseUrl + config.api.endpoint.techIndex) {
       axios.get(`${endpoint}`).then((res) => {
         this.techs = res.data;
+        this.loading.techs = false;
       });
     },
 
     loadMore() {
       const endpoint = this.prjCollection.next_page_url;
+      this.loading.more = true;
       this.fetchProjects(endpoint, true);
     },
 
@@ -99,12 +108,7 @@ export default {
   components: { ProjectCard, AppBtn, AppLoader },
 
   created() {
-    if (store.activePagination.projectIndex) {
-      this.fetchProjects(store.activePagination.projectIndex);
-    } else {
-      this.fetchProjects();
-    }
-
+    this.fetchProjects();
     this.fetchTypes();
     this.fetchTechs();
   },
@@ -114,40 +118,43 @@ export default {
 <template>
   <h1 class="text-center mb-3">{{ config.appName }}</h1>
 
-  <app-loader class="text-primary my-5" />
+  <app-loader v-if="loading.projects || loading.types || loading.techs" class="text-primary my-5 fs-5" />
 
-  <div class="accordion mb-3" id="filterAccordion">
-    <div class="accordion-item">
-      <h2 class="accordion-header">
-        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#filterAccordion-options" aria-expanded="true" aria-controls="filterAccordion-options">Filter</button>
-      </h2>
-      <div id="filterAccordion-options" class="accordion-collapse collapse">
-        <div class="accordion-body d-flex flex-column gap-3">
-          <div class="input-group">
-            <span class="input-group-text" id="search-addon"><font-awesome-icon icon="fa-solid fa-magnifying-glass" /></span>
-            <input v-model="searchTerm" @input="handleSearchInput()" type="text" class="form-control" placeholder="Search project..." aria-label="Search" aria-describedby="search-addon" />
-          </div>
-          <div class="types-wrapper">
-            <span :class="['badge', 'fs-6', { active: _type.active }]" v-for="_type in types" @click="typesHandleClick(_type)">
-              {{ _type.label }}
-            </span>
-          </div>
-          <div class="techs-wrapper">
-            <span :class="['badge', 'fs-6', { active: _tech.active }]" v-for="_tech in techs" @click="techsHandleClick(_tech)">
-              {{ _tech.label }}
-            </span>
+  <div v-else>
+    <div class="accordion mb-3" id="filterAccordion">
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#filterAccordion-options" aria-expanded="true" aria-controls="filterAccordion-options">Filter</button>
+        </h2>
+        <div id="filterAccordion-options" class="accordion-collapse collapse">
+          <div class="accordion-body d-flex flex-column gap-3">
+            <div class="input-group">
+              <span class="input-group-text" id="search-addon"><font-awesome-icon icon="fa-solid fa-magnifying-glass" /></span>
+              <input v-model="searchTerm" @input="handleSearchInput()" type="text" class="form-control" placeholder="Search project..." aria-label="Search" aria-describedby="search-addon" />
+            </div>
+            <div class="types-wrapper">
+              <span :class="['badge', 'fs-6', { active: _type.active }]" v-for="_type in types" @click="typesHandleClick(_type)">
+                {{ _type.label }}
+              </span>
+            </div>
+            <div class="techs-wrapper">
+              <span :class="['badge', 'fs-6', { active: _tech.active }]" v-for="_tech in techs" @click="techsHandleClick(_tech)">
+                {{ _tech.label }}
+              </span>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- <collection-paginator :collection="prjCollection" @linkClicked="fetchProjects" /> -->
-  <div class="row row-cols-4 g-4 py-4">
-    <project-card v-for="project in projects" :project="project" />
+    <div v-if="projects.length" class="row row-cols-4 g-4 py-4">
+      <project-card v-for="project in projects" :project="project" />
+    </div>
+    <div v-else class="fs-5 text-center fst-italic">No results</div>
+
+    <app-loader v-if="loading.more" class="text-primary" />
+    <app-btn v-else-if="prjCollection.next_page_url" btnText="Load More" btnClasses="btn btn-link w-100 text-center" @btnClicked="loadMore" />
   </div>
-  <!-- <collection-paginator :collection="prjCollection" @linkClicked="fetchProjects" /> -->
-  <app-btn btnText="Load More" btnClasses="btn btn-link w-100 text-center" @btnClicked="loadMore" />
 </template>
 
 <style lang="scss" scoped>
