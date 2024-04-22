@@ -1,6 +1,7 @@
 <script>
-import ProjectCard from "../components/projects/ProjectCard.vue";
+// import ProjectCard from "../components/projects/ProjectCard.vue";
 // import CollectionPaginator from "../components/partials/CollectionPaginator.vue";
+import ProjectSection from "../components/projects/ProjectSection.vue";
 import AppBtn from "../components/partials/AppBtn.vue";
 import AppLoader from "../components/partials/AppLoader.vue";
 import { config, store } from "../store/index.js";
@@ -105,7 +106,7 @@ export default {
     },
   },
 
-  components: { ProjectCard, AppBtn, AppLoader },
+  components: { ProjectSection, AppBtn, AppLoader },
 
   created() {
     this.fetchProjects();
@@ -121,35 +122,39 @@ export default {
   <app-loader v-if="loading.projects || loading.types || loading.techs" class="text-primary my-5 fs-5" />
 
   <div v-else>
-    <div class="accordion mb-3" id="filterAccordion">
-      <div class="accordion-item">
-        <h2 class="accordion-header">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#filterAccordion-options" aria-expanded="true" aria-controls="filterAccordion-options">Filter</button>
-        </h2>
-        <div id="filterAccordion-options" class="accordion-collapse collapse">
-          <div class="accordion-body d-flex flex-column gap-3">
-            <div class="input-group">
-              <span class="input-group-text" id="search-addon"><font-awesome-icon icon="fa-solid fa-magnifying-glass" /></span>
-              <input v-model="searchTerm" @input="handleSearchInput()" type="text" class="form-control" placeholder="Search project..." aria-label="Search" aria-describedby="search-addon" />
-            </div>
-            <div class="types-wrapper">
-              <span :class="['badge', 'fs-6', { active: _type.active }]" v-for="_type in types" @click="typesHandleClick(_type)">
-                {{ _type.label }}
-              </span>
-            </div>
-            <div class="techs-wrapper">
-              <span :class="['badge', 'fs-6', { active: _tech.active }]" v-for="_tech in techs" @click="techsHandleClick(_tech)">
-                {{ _tech.label }}
-              </span>
+    <div class="container">
+      <div class="accordion mb-3" id="filterAccordion">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#filterAccordion-options" aria-expanded="true" aria-controls="filterAccordion-options">Filter</button>
+          </h2>
+          <div id="filterAccordion-options" class="accordion-collapse collapse">
+            <div class="accordion-body d-flex flex-column gap-3">
+              <div class="input-group">
+                <span class="input-group-text" id="search-addon"><font-awesome-icon icon="fa-solid fa-magnifying-glass" /></span>
+                <input v-model="searchTerm" @input="handleSearchInput()" type="text" class="form-control" placeholder="Search project..." aria-label="Search" aria-describedby="search-addon" />
+              </div>
+              <div class="types-wrapper">
+                <span :class="['badge', 'fs-6', { active: _type.active }]" v-for="_type in types" @click="typesHandleClick(_type)">
+                  {{ _type.label }}
+                </span>
+              </div>
+              <div class="techs-wrapper">
+                <span :class="['badge', 'fs-6', { active: _tech.active }]" v-for="_tech in techs" @click="techsHandleClick(_tech)">
+                  {{ _tech.label }}
+                </span>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div v-if="projects.length" class="row row-cols-4 g-4 py-4">
+    <!-- <div v-if="projects.length" class="row row-cols-4 g-4 py-4">
       <project-card v-for="project in projects" :project="project" />
-    </div>
+    </div> -->
+
+    <project-section v-if="projects.length" v-for="project in projects" :project="project" />
     <div v-else class="fs-5 text-center fst-italic">No results</div>
 
     <app-loader v-if="loading.more" class="text-primary" />

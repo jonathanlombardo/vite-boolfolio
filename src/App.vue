@@ -30,10 +30,10 @@ export default {
   <div class="main-wrapper">
     <app-header />
     <main>
-      <div class="container">
-        <!-- <project-index /> -->
-        <router-view />
-      </div>
+      <!-- <div class="container"> -->
+      <!-- <project-index /> -->
+      <router-view />
+      <!-- </div> -->
     </main>
     <app-footer />
   </div>
