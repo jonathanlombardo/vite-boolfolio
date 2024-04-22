@@ -154,7 +154,7 @@ export default {
       <project-card v-for="project in projects" :project="project" />
     </div> -->
 
-    <project-section v-if="projects.length" v-for="project in projects" :project="project" />
+    <project-section v-if="projects.length" v-for="(project, index) in projects" :project="project" :key="index" :sectionID="index" />
     <div v-else class="fs-5 text-center fst-italic">No results</div>
 
     <app-loader v-if="loading.more" class="text-primary" />

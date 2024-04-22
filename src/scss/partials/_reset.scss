@@ -1,5 +1,12 @@
 @use "./var" as *;
 
+* {
+  font-family: "Nanum Gothic", sans-serif;
+}
+body {
+  color: $white;
+}
+
 a {
   color: inherit;
   text-decoration: none;

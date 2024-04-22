@@ -25,6 +25,7 @@ export default {
 </script>
 
 <template>
+  <div class="container">  
   <div v-if="project">
     <div class="mb-5 d-flex justify-content-center align-items-center gap-3">
       <h1>{{ project.title }}</h1>
@@ -51,6 +52,7 @@ export default {
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <style lang="scss" scoped></style>
