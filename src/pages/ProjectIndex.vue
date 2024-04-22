@@ -1,6 +1,7 @@
 <script>
 import ProjectCard from "../components/projects/ProjectCard.vue";
-import CollectionPaginator from "../components/partials/CollectionPaginator.vue";
+// import CollectionPaginator from "../components/partials/CollectionPaginator.vue";
+import AppBtn from "../components/partials/AppBtn.vue";
 import { config, store } from "../store/index.js";
 import axios from "axios";
 
@@ -48,7 +49,7 @@ export default {
 
       axios.get(`${endpoint}`, { params }).then((res) => {
         if (!res.data.success) this.$router.push({ name: "notfound" });
-        this.projects = res.data.projects.data;
+        this.projects = this.projects.concat(res.data.projects.data);
         this.prjCollection = res.data.projects;
 
         store.activePagination.projectIndex = endpoint;
@@ -65,6 +66,11 @@ export default {
       axios.get(`${endpoint}`).then((res) => {
         this.techs = res.data;
       });
+    },
+
+    loadMore() {
+      const endpoint = this.prjCollection.next_page_url;
+      this.fetchProjects(endpoint);
     },
 
     typesHandleClick(type) {
@@ -89,7 +95,7 @@ export default {
     },
   },
 
-  components: { ProjectCard, CollectionPaginator },
+  components: { ProjectCard, AppBtn },
 
   created() {
     if (store.activePagination.projectIndex) {
@@ -133,11 +139,12 @@ export default {
     </div>
   </div>
 
-  <collection-paginator :collection="prjCollection" @linkClicked="fetchProjects" />
+  <!-- <collection-paginator :collection="prjCollection" @linkClicked="fetchProjects" /> -->
   <div class="row row-cols-4 g-4 py-4">
     <project-card v-for="project in projects" :project="project" />
   </div>
-  <collection-paginator :collection="prjCollection" @linkClicked="fetchProjects" />
+  <!-- <collection-paginator :collection="prjCollection" @linkClicked="fetchProjects" /> -->
+  <app-btn btnText="Load More" btnClasses="btn btn-link w-100 text-center" @btnClicked="loadMore" />
 </template>
 
 <style lang="scss" scoped>
